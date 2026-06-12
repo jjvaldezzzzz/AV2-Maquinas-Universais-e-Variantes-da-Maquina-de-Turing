@@ -127,7 +127,7 @@ Não há dependências externas complexas, apenas uma instalação padrão do Py
 
 1. **Clone este repositório:**
 ```bash
-git clone [URL_DO_SEU_REPOSITORIO]
+git clone https://github.com/jjvaldezzzzz/AV2-Maquinas-Universais-e-Variantes-da-Maquina-de-Turing.git
 ```
 
 2. **Para testar o Autômato de Pilha:**
