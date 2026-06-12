@@ -30,17 +30,56 @@ O problema exige garantir o balanceamento correto de parênteses aninhados e a v
 
 **Caso de Sucesso:** Expressão `(a+b)*c`
 ```
-Execute: python pda_validador.py
+==================================================
+RASTREIO DE EXECUÇÃO: Autômato de Pilha
+Expressão: (a+b)*c
+==================================================
+Estado     | Lendo   | Ação Pilha   | Pilha Atual
+--------------------------------------------------
+q0         | (       | Empilha (X)  | $X
+q_open     | a       | Nenhuma      | $X
+q_var      | +       | Nenhuma      | $X
+q_op       | b       | Nenhuma      | $X
+q_var      | )       | Desempilha   | $
+q_close    | *       | Nenhuma      | $
+q_op       | c       | Nenhuma      | $
+q_var      | EOF     | Nenhuma      | $
+--------------------------------------------------
+RESULTADO: ACEITO (Expressão Sintaticamente Correta!)
 ```
 
 **Caso de Falha 1:** Erro Sintático `a+*b`
 ```
-Execute: python pda_validador.py
+==================================================
+RASTREIO DE EXECUÇÃO: Autômato de Pilha
+Expressão: a+*b
+==================================================
+Estado     | Lendo   | Ação Pilha   | Pilha Atual
+--------------------------------------------------
+q0         | a       | Nenhuma      | $
+q_var      | +       | Nenhuma      | $
+q_op       | *       | Erro Sintaxe | $
+--------------------------------------------------
+RESULTADO: REJEITADO (Transição não definida)
 ```
 
 **Caso de Falha 2:** Desbalanceamento `((a+b)`
 ```
-Execute: python pda_validador.py
+==================================================
+RASTREIO DE EXECUÇÃO: Autômato de Pilha
+Expressão: ((a+b)
+==================================================
+Estado     | Lendo   | Ação Pilha   | Pilha Atual
+--------------------------------------------------
+q0         | (       | Empilha (X)  | $X
+q_open     | (       | Empilha (X)  | $XX
+q_open     | a       | Nenhuma      | $XX
+q_var      | +       | Nenhuma      | $XX
+q_op       | b       | Nenhuma      | $XX
+q_var      | )       | Desempilha   | $X
+q_close    | EOF     | Nenhuma      | $X
+--------------------------------------------------
+RESULTADO: REJEITADO (Pilha não vazia no final)
 ```
 
 ---
@@ -63,7 +102,21 @@ Dada uma palavra de entrada $w$ (ex: `abc`), a máquina deve processá-la e gera
 **Saída Esperada:** `abc#abc#cba`
 
 ```
-Execute: python mt_multifita.py
+============================================================
+RASTREIO: Máquina de Turing Multifita (3 Fitas)
+Objetivo: w -> w#w#w^R | Entrada: abc
+============================================================
+[q_start     ] T1: abc          | C1:0 C2:0 C3:0
+[q_copy      ] T1: abc          | C1:2 C2:3 C3:3
+[q_rewind_t2 ] T1: abc#         | C1:4 C2:2 C3:4
+[q_concat_w  ] T1: abc#         | C1:4 C2:1 C3:4
+[q_concat_w  ] T1: abc#abc      | C1:7 C2:4 C3:4
+[q_concat_rev] T1: abc#abc#cb   | C1:10 C2:4 C3:1
+
+------------------------------------------------------------
+RESULTADO: ACEITO
+Fita 1 Final: abc#abc#cba
+------------------------------------------------------------
 ```
 
 ---
