@@ -8,7 +8,7 @@ class MaquinaTuringMultifita:
         self.construir_transicoes()
 
     def construir_transicoes(self):
-        alfabeto = ['a', 'b', 'c']
+        alfabeto = ['a', 'b', 'c', 'r', 's', 'l', 'w', 'i']
         
         # 1. q_start: Escreve marcadores de início nas Fitas 2 e 3
         # (Lê T1, T2, T3) -> (Novo Estado, Escreve T1, T2, T3, Move T1, T2, T3)
@@ -99,3 +99,5 @@ class MaquinaTuringMultifita:
 # Teste
 mt = MaquinaTuringMultifita()
 mt.rastrear_execucao("abc") # Deve gerar abc#abc#cba
+mt.rastrear_execucao("www")
+mt.rastrear_execucao("brasil")
